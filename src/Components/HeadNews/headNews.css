@@ -1,0 +1,15 @@
+    marquee{
+        color: #fff;
+        padding: 7px;
+        font-size:15px;
+        font-weight: bold;
+        margin-top: 10px;
+        background-color: #f50057;
+        z-index: -999;
+        -webkit-box-shadow: inset 5px 5px 15px 5px rgba(0,0,0,0.47); 
+        box-shadow: inset 5px 5px 15px 5px rgba(0,0,0,0.47);
+    }
+    .news{
+        
+    }
+    
