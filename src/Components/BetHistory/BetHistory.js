@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => (styles(theme)));
 const BetHistory = ({ open }) => {
     const classes = useStyles();
     const [bets, setBets] = useContext(BetContext)
-    // const [bets, setBets] 
+    console.log(bets);
 
     return (
         <>

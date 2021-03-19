@@ -8,7 +8,6 @@ const HeaderBar = ({ auth, user }) => {
     var d = new Date();
     let date = d.getDate() + '/' + d.getMonth() + '/' + d.getFullYear()
     const [userInfo] = useContext(UserInfoContext)
-    console.log(userInfo);
     return (
         <>
             <div style={{ height: '30px', background: 'black', marginRight: '-20px' }}>

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory, useLocation } from "react-router-dom";
 
-import { Typography, Container, Avatar, Grid, Checkbox, FormControlLabel, Button, TextField, CssBaseline } from '@material-ui/core';
+import { Typography, Container, Avatar, Grid, Button, TextField, CssBaseline } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
-import { AuthContext, Header } from '../Layout/Layout';
+import { AllUsersContext, AuthContext, Header } from '../Layout/Layout';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const classes = useStyles();
     const [auth, setAuth] = useContext(AuthContext)
+    let [user, setUser] = useContext(AllUsersContext)
     let history = useHistory();
     let location = useLocation();
-    let [user, setUser] = useState([])
     let [username, setUsername] = useState({
         isUser: false,
         mess: '',
@@ -41,12 +41,6 @@ export default function SignIn() {
 
     let { from } = location.state || { from: { pathname: "/" } };
 
-    useEffect(() => {
-        fetch('https://powerful-stream-48655.herokuapp.com/get-users')
-            .then((response) => response.json())
-            .then((json) => setUser(json));
-
-    }, [])
 
 
 
@@ -90,12 +84,22 @@ export default function SignIn() {
         if (auth.loginValid) {
             let find = user.find(user => user.username === auth.username)
             if (find) {
+                isLogin({
+                    isUser: true,
+                    mess: '',
+                    username: find.username
+                })
                 setUsername({
                     isUser: true,
                     mess: '',
                     username: find.username
                 })
             } else {
+                isLogin({
+                    isUser: false,
+                    mess: 'User not exist!',
+                    username: ''
+                })
                 setUsername({
                     isUser: false,
                     mess: 'User not exist!',
@@ -103,23 +107,28 @@ export default function SignIn() {
                 })
             }
 
-            if (username.isUser) {
-                fetch('https://powerful-stream-48655.herokuapp.com/login-user',
-                    {
-                        method: 'POST',
-                        body: JSON.stringify({ username: auth.username, password: auth.password }),
-                        headers: {
-                            'Content-type': 'application/json; charset=UTF-8',
-                        },
-                    }
-                )
-                    .then((response) => response.json())
-                    .then((json) => {
-                        localStorage.setItem('user', JSON.stringify(json))
-                        setAuth(json)
-                    });
-                history.replace(from);
-            }
+
+        }
+    }
+    const isLogin = (myUser) => {
+
+        if (myUser.isUser) {
+            fetch('https://powerful-stream-48655.herokuapp.com/login-user',
+                {
+                    method: 'POST',
+                    body: JSON.stringify({ username: auth.username, password: auth.password }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                }
+            )
+                .then((response) => response.json())
+                .then((json) => {
+                    localStorage.setItem('user', JSON.stringify(json))
+                    console.log(json);
+                    setAuth(json)
+                });
+            history.replace(from);
         }
     }
 

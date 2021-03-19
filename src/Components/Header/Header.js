@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { AuthContext, UserContext } from '../Layout/Layout';
 import './header.css'
 import HeaderBar from './HeaderBar';
-import logo from '../../img/logo.png'
+import logo from '../../img/wins65.com.png'
 
 export default function Header() {
     const [auth, setAuth] = useContext(AuthContext);
     const [user] = useContext(UserContext);
-
     const myFunction = () => {
         const x = document.getElementById("myTopnav");
         if (x.className === "topnav") {
