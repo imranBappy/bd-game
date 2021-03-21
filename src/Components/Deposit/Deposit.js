@@ -92,7 +92,7 @@ const DepositRequest = () => {
         history.push('/')
 
     }
-    const clubnames = ['Bkash', 'Rocket', 'Nagad']
+    const typeName = ['Bkash', 'Nagad']
 
     return (
         <Container component="main" maxWidth="xs">
@@ -103,6 +103,24 @@ const DepositRequest = () => {
                     Deposit Request
                 </Typography>
                 <div className={classes.form}>
+                    <FormControl required variant="outlined" className='select-club' fullWidth >
+                        <InputLabel htmlFor="select-method">Select Method </InputLabel>
+                        <Select
+                            required
+                            native
+                            onChange={handleChange}
+                            label="select-method "
+                            inputProps={{
+                                name: 'method',
+                                id: 'select-method',
+                            }}
+                        >
+                            <option aria-label="None" />
+                            {
+                                typeName.map((club, i) => <option key={i} value={club}>{club}</option>)
+                            }
+                        </Select>
+                    </FormControl>
                     <TextField
                         onChange={handleChange}
                         variant="outlined"
@@ -110,6 +128,7 @@ const DepositRequest = () => {
                         required
                         fullWidth
                         label="To"
+                        defaultValue={deposit.method === 'Bkash' ? console.log(232) : console.log(3129)}
                         name="to"
                     />
                     <TextField
@@ -132,24 +151,7 @@ const DepositRequest = () => {
                         id="amount"
                     />
 
-                    <FormControl required variant="outlined" className='select-club' fullWidth >
-                        <InputLabel htmlFor="select-method">Select Method </InputLabel>
-                        <Select
-                            required
-                            native
-                            onChange={handleChange}
-                            label="select-method "
-                            inputProps={{
-                                name: 'method',
-                                id: 'select-method',
-                            }}
-                        >
-                            <option aria-label="None" />
-                            {
-                                clubnames.map((club, i) => <option key={i} value={club}>{club}</option>)
-                            }
-                        </Select>
-                    </FormControl>
+
                     <FormControl required variant="outlined" className='select-club' fullWidth >
                         <InputLabel htmlFor="select-type">Select Type </InputLabel>
                         <Select
