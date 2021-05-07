@@ -14,8 +14,16 @@ export const UserInfoContext = createContext()
 export const AllUsersContext = createContext()
 
 const Layout = ({ children }) => {
+    let getUser = JSON.parse(localStorage.getItem('user'))|| { isLoggedIn: false }
+    const [auth, setAuth] = useState(getUser)
+    useEffect(() => {
+        if (!getUser) {
+            setAuth({ ...getUser, isLoggedIn: false })
+        } else {
+            setAuth({ ...getUser, isLoggedIn: true })
+        }
+    }, [])
 
-    const [auth, setAuth] = useState({ isLoggedIn: false })
     const [userInfo, setUserInfo] = useState({})
     const [user, setUser] = useState({
         username: '',
@@ -34,17 +42,7 @@ const Layout = ({ children }) => {
     }, [])
 
 
-    useEffect(() => {
-        let getUser = JSON.parse(localStorage.getItem('user'))
-        if (getUser) {
-            let result = Object.keys(getUser)
-            if (result > 0) {
-                setAuth({ ...getUser, isLoggedIn: true })
-            } else {
-                setAuth({ ...getUser, isLoggedIn: false })
-            }
-        }
-    }, [])
+   
 
 
     useEffect(() => {
@@ -119,4 +117,5 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
-export { Header, Home, SignIn, NotFound, Signup, Dashboard, PrivateRoute }
+export { Header, Home, SignIn, NotFound, Signup, Dashboard, PrivateRoute };
+
