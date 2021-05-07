@@ -1,16 +1,14 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route
+  HashRouter, Route, Switch
 } from "react-router-dom";
-import Layout, { SignIn, Home, NotFound, Signup, Dashboard, PrivateRoute } from './Components/Layout/Layout'
-import './App.css'
+import './App.css';
+import Layout, { Dashboard, Home, NotFound, PrivateRoute, SignIn, Signup } from './Components/Layout/Layout';
 const App = () => {
 
   return (
     <>
-      <Router>
+      <HashRouter>
         <Layout>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -22,7 +20,7 @@ const App = () => {
             <Route path="*" component={NotFound} />
           </Switch>
         </Layout>
-      </Router>
+      </HashRouter>
     </>
   );
 };
