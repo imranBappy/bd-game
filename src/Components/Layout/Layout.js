@@ -16,8 +16,9 @@ export const AllUsersContext = createContext()
 const Layout = ({ children }) => {
     let getUser = JSON.parse(localStorage.getItem('user'))|| { isLoggedIn: false }
     const [auth, setAuth] = useState(getUser)
+  
     useEffect(() => {
-        if (!getUser) {
+        if (!localStorage.getItem('user')) {
             setAuth({ ...getUser, isLoggedIn: false })
         } else {
             setAuth({ ...getUser, isLoggedIn: true })
